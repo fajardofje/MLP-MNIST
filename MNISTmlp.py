@@ -62,7 +62,7 @@ y_val = keras.utils.to_categorical(y_val, num_classes)
 for i in range(5):
     print(y_train[i])
 
-'''
+
 #Modelo de MLP
 model = Sequential()
 model.add(Dense(512, activation='relu', input_shape=(784,)))
@@ -104,35 +104,5 @@ with open("mlpmnist.json", "w") as json_file:
 # serialize weights to HDF5
 model.save_weights("mlpmnist.h5")
 print("Saved model to disk")
-'''
-#Carga la red guardada
-json_file = open('mlpmnist.json', 'r')
-loaded_model_json = json_file.read()
-json_file.close()
-loaded_model = model_from_json(loaded_model_json)
-# load weights into new model
-loaded_model.load_weights("mlpmnist.h5")
-print("Loaded model from disk")
- 
-# evaluate loaded model on test data
-loaded_model.compile(loss='mean_absolute_error', optimizer='adam', metrics=['mse','mae'])
-score = loaded_model.evaluate(x_val, y_val, verbose=0)
-pred = loaded_model.predict(x_val)
-for i in range(5):
-    print('valor predicho: ',pred[i])
-    fig, ax = plt.subplots()
-    image = x_val[i]
-    ax.imshow(image, cmap=plt.cm.gray, interpolation='nearest')
-    ax.set_title('dropped spines')
-    # Move left and bottom spines outward by 10 points
-    ax.spines['left'].set_position(('outward', 10))
-    ax.spines['bottom'].set_position(('outward', 10))
-    # Hide the right and top spines
-    ax.spines['right'].set_visible(False)
-    ax.spines['top'].set_visible(False)
-    # Only show ticks on the left and bottom spines
-    ax.yaxis.set_ticks_position('left')
-    ax.xaxis.set_ticks_position('bottom')
-    plt.show()
-    input('press any key...')
+
     
